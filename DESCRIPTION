@@ -1,0 +1,16 @@
+Package: ravcutils
+Type: Package
+Title: Common Utils for Data Processing Automation
+Version: 0.1.0
+Authors@R: person("Alexey", "Cherkaev",
+    email = "mobius-eng.github@protonmail.com",
+    role = c("aut", "cre"))
+Description: The package provides a few common utils to automate data
+    processing.
+License: MIT
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.1.1
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
