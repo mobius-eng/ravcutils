@@ -1,7 +1,12 @@
 #' ravcutils: A collection of utils for data processing automation.
 #'
+#' A collection of useful functions to automate data processing and
+#' aid ML application for processing industry applications.
+#'
 #' @docType package
 #' @name ravcutils
+#' @importFrom stats sd
+#' @importFrom utils head tail
 NULL
 
 # Remove variables with too many NAs -------------------------------------------
@@ -47,7 +52,7 @@ rm_NA_vars <- function(df, threshold = 0.3) {
 #' @return A dataframe with non-varying numeric variables removed.
 #'
 #' @examples
-#' df <- data.frame(a = c(1.001, 0.9998, 1, 1.00003), b = (10., 14., 2., 20.),
+#' df <- data.frame(a = c(1.001, 0.9998, 1, 1.00003), b = c(10., 14., 2., 20.),
 #'                  f = c("yes", "yes", "yes", "yes"))
 #' rm_nonvar_vars(df, threshold = 1e-2)
 #' @export
@@ -58,7 +63,7 @@ rm_nonvar_vars <- function(df, threshold = 1e-3, scale = NA) {
   s <- rep(0, nvar)
   # Make scale a vector if necessary
   if (length(scale) == 1) {
-    scale <- rep(scale, nvars)
+    scale <- rep(scale, nvar)
   }
   for (i in 1:nvar) {
     if (is.numeric(df[,i])) {
@@ -162,7 +167,7 @@ apply_rowop <- function(matrix, op, row) {
 #'
 #' @param data matrix of observations
 #' @param classification vector of classiffication labels for each observation
-#' @param centroides Matrix whose each row is the centroid of a cluster
+#' @param centroids Matrix whose each row is the centroid of a cluster
 #' @param stdev vector of standard deviations for each variable
 #' @export
 dunn_index <- function(data, classification, centroids, stdev) {

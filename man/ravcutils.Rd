@@ -4,3 +4,7 @@
 \name{ravcutils}
 \alias{ravcutils}
 \title{ravcutils: A collection of utils for data processing automation.}
+\description{
+A collection of useful functions to automate data processing and
+aid ML application for processing industry applications.
+}

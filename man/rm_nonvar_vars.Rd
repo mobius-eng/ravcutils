@@ -25,7 +25,7 @@ original dataframe that are either non-numeric or have relative standard
 deviation above the specified threshold.
 }
 \examples{
-df <- data.frame(a = c(1.001, 0.9998, 1, 1.00003), b = (10., 14., 2., 20.),
+df <- data.frame(a = c(1.001, 0.9998, 1, 1.00003), b = c(10., 14., 2., 20.),
                  f = c("yes", "yes", "yes", "yes"))
 rm_nonvar_vars(df, threshold = 1e-2)
 }

@@ -11,9 +11,9 @@ dunn_index(data, classification, centroids, stdev)
 
 \item{classification}{vector of classiffication labels for each observation}
 
-\item{stdev}{vector of standard deviations for each variable}
+\item{centroids}{Matrix whose each row is the centroid of a cluster}
 
-\item{centroides}{Matrix whose each row is the centroid of a cluster}
+\item{stdev}{vector of standard deviations for each variable}
 }
 \description{
 Optimal selection is done for the number of clusters that maximize the index

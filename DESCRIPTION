@@ -7,7 +7,7 @@ Authors@R: person("Alexey", "Cherkaev",
     role = c("aut", "cre"))
 Description: The package provides a few common utils to automate data
     processing.
-License: MIT
+License: GPL-3
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.1
