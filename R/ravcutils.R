@@ -203,7 +203,60 @@ dunn_index <- function(data, classification, centroids, stdev) {
   dc / dcluster
 }
 
+# Volume of distribution -------------------------------------------------------
+#' Computes "volume" of distribution
+#'
+#' \code{vol_dist} gives an idea of the spread of distribution by computing its
+#' "volume". Distribution is assumed to be Gaussian with covariance matrix
+#' \code{cov.}. Then the volume of the n-dimensional ellipsoid, defined by this
+#' covariance matrix is computed. This function may be useful for clustering to
+#' assess the size of the cluster.
+#'
+#' @param cov. Covariance matrix of the distribution.
+#' @return "Volume" of the ellipsoid.
+#' @export
+vol_dist <- function(cov.) {
+  n <- dim(cov.)[[1]]
+  a <- eigen(cov., TRUE)$values
+  coeff <- pi^(n/2) / gamma(n/2+1)
+  return(coeff * prod(a))
+}
 
 
+# Compute number of observation in each group ----------------------------------
+#' Finds the count of each observation value (assuming discrete values)
+#'
+#' @param obs vector of discrete observations
+#' @return The list of observations counted by group. Each list item is the list
+#'     with (at least) fields \code{value} and \code{count}.
+#' @export
+count_by_group <- function(obs) {
+  groups <- list()
 
-
+  for (x in obs) {
+    found <- FALSE
+    foundv <- list()
+    for (y in groups) {
+      if (y[["value"]] == x) {
+        foundv <- y
+        found <- TRUE
+        break
+      }
+    }
+    if (found) {
+      foundv[["count"]] <- foundv[["count"]] + 1
+      # replace
+      groups[[foundv[["index"]]]] <- foundv
+    } else {
+      i <- length(groups) + 1
+      groups[[i]] <- list(value = x, count = 1, index = i)
+    }
+  }
+  # Transpose the data
+  n <- length(groups)
+  df <- data.frame(value = rep(groups[[1]]$value, n), count = rep(0, n))
+  for (item in groups) {
+    df[item$index,] <- item[c("value", "count")]
+  }
+  return(df)
+}

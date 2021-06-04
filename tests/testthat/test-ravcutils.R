@@ -89,3 +89,16 @@ test_that("from_pca_to_original works", {
   obs <- Y[istart:istart+10,]
   expect_equal(from_pca_to_original(pca, obs_pca), obs)
 })
+
+
+# Test count_by_group ---------------------------------------------------------
+test_that("count_by_group works", {
+  x <- c(1, 2, 1, 3, 2, 2, 5)
+  xcount <- count_by_group(x)
+  for (iobs in 1:nrow(xcount)) {
+    n <- sum(x == xcount[iobs, "value"])
+    expect_equal(xcount[iobs, "count"], n)
+  }
+  expect_equal(dim(xcount)[[1]], 4)
+  expect_equal(sort(xcount[["value"]]), c(1, 2, 3, 5))
+})
