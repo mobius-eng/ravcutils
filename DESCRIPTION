@@ -16,3 +16,5 @@ Suggests:
 Config/testthat/edition: 3
 URL: https://github.com/mobius-eng/ravcutils
 BugReports: https://github.com/mobius-eng/ravcutils/issues
+Imports: 
+    RColorBrewer

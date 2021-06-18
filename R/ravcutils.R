@@ -260,3 +260,29 @@ count_by_group <- function(obs) {
   }
   return(df)
 }
+
+
+# Convert Excel date serial number to date/time --------------------------------
+#' Converts Excel date serial number to POSIXct
+#'
+#' When date/time field is loaded from Excel it is often in numeric format.
+#' This function converts it to POSIX date/time.
+#' @param x Date serial number (from Excel)
+#' @return POSIX date/time
+#' @export
+from_excel_date_number <- function(x) {
+  as.POSIXct(x * (60*60*24),
+             origin="1899-12-30",
+             tz="GMT")
+}
+
+
+# Get better palette -----------------------------------------------------------
+#' Returns a palette with pleasant colors for plots
+#'
+#' Returns a palette with 6 colors to use for plotting.
+#' @return Vector of 6 colors
+#' @export
+ravc_palette <- function() {
+  RColorBrewer::brewer.pal(n = 6, name = 'Dark2')
+}
