@@ -4,13 +4,25 @@
 \alias{standardize}
 \title{Standardizes numerical matrix}
 \usage{
-standardize(M)
+standardize(M, zero_nonvar_col = TRUE, full_result = FALSE)
 }
 \arguments{
 \item{M}{Matrix to standardize}
+
+\item{zero_nonvar_col}{Logical switch to decide what to do with zero varying
+columns. If `TRUE`, these columns are zeroed,
+otherwise, `NaN`'s will be returned.}
+
+\item{full_result}{Logical switch to determine what kind of result is
+required. If `TRUE` returns the list with standardized
+matrix, column means and standard deviations. Otherwise,
+only matrix is returned.}
 }
 \value{
-Matrix with each column having mean zero and variance one.
+Matrix with each column having mean zero and variance one. If
+        `full_result` is `TRUE` return the list containing this matrix and
+        original matrix column means and standard deviations. Helps to
+        convert the data back to original variables.
 }
 \description{
 Standardizes numerical matrix
