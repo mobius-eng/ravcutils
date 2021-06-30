@@ -167,12 +167,14 @@ apply_rowop <- function(matrix, op, row) {
 #'
 #' @return Matrix with each column having mean zero and variance one.
 #' @export
-standardize <- function(M) {
+standardize <- function(M, zero_nonvar_col = TRUE) {
   ncol <- dim(M)[[2]]
   means <- colMeans(M)
   s <- sapply(1:ncol, function(i) { sd(M[,i]) })
+  # Avoid division by zero
+  if (zero_nonvar_col) { s[s == 0] <- 1 }
   A <- apply_rowop(M, `-`, means)
-  A <- apply_rowop(A, `/`, s)
+  A <- apply_rowop(A, '/', s)
   return(A)
 }
 
