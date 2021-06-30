@@ -160,6 +160,22 @@ apply_rowop <- function(matrix, op, row) {
   return(m)
 }
 
+# Standardize data matrix ------------------------------------------------------
+#' Standardizes numerical matrix
+#'
+#' @param M Matrix to standardize
+#'
+#' @return Matrix with each column having mean zero and variance one.
+#' @export
+standardize <- function(M) {
+  ncol <- dim(M)[[2]]
+  means <- colMeans(M)
+  s <- sapply(1:ncol, function(i) { sd(M[,i]) })
+  A <- apply_rowop(M, `-`, means)
+  A <- apply_rowop(A, `/`, s)
+  return(A)
+}
+
 # Dunn Index for clustering ----------------------------------------------------
 #' Dunn index to select cluster numbers
 #'
