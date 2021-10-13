@@ -171,19 +171,24 @@ apply_rowop <- function(matrix, op, row) {
 #'                    required. If `TRUE` returns the list with standardized
 #'                    matrix, column means and standard deviations. Otherwise,
 #'                    only matrix is returned.
+#' @param na.rm           Logical value to skip missing values in calculating
+#'                        means and variances. Passed to `colMeans` and `sd`.
+#'                        Default value is `FALSE`.
 #'
 #' @return Matrix with each column having mean zero and variance one. If
 #'         `full_result` is `TRUE` return the list containing this matrix and
 #'         original matrix column means and standard deviations. Helps to
 #'         convert the data back to original variables.
 #' @export
-standardize <- function(M, zero_nonvar_col = TRUE, full_result = FALSE) {
+standardize <- function(M, zero_nonvar_col = TRUE, full_result = FALSE,
+                        na.rm = FALSE) {
   ncol <- dim(M)[[2]]
-  means <- colMeans(M)
-  s <- sapply(1:ncol, function(i) { sd(M[,i]) })
+  means <- colMeans(M, na.rm = na.rm)
+  s <- sapply(1:ncol, function(i) { sd(M[,i], na.rm = na.rm) })
   # Need a copy in case returning full result
   s2 <- s
-  # Avoid division by zero
+  # Avoid division by zero; columns will be zeroed automatically
+  # by subtracting the mean; otherwise Inf will be returned
   if (zero_nonvar_col) { s2[s2 == 0] <- 1 }
   A <- apply_rowop(M, `-`, means)
   A <- apply_rowop(A, `/`, s2)
